@@ -46,8 +46,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 // 所有请求的认证都需要登录才可以访问
                 .anyRequest().authenticated().and().formLogin()
-                .usernameParameter("username222").passwordParameter("password222")
+                .usernameParameter("username").passwordParameter("password")
                 .loginProcessingUrl("/doLogin")
+                // 没有登录时，会跳转到 login页面
                 .loginPage("/login")
                 // 登录成功的回调
                 .successHandler(new AuthenticationSuccessHandler(){
@@ -58,6 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         PrintWriter out = httpServletResponse.getWriter();
                         // 获取登录成功的 hr 对象
                        Hr hr =  (Hr)authentication.getPrincipal();
+                       hr.setPassword(null);
                        RespBean ok = RespBean.ok("登录成功",hr);
                        String s = new ObjectMapper().writeValueAsString(ok);
                        out.write(s);
@@ -92,7 +94,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessHandler(new LogoutSuccessHandler() {
                     @Override
                     public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
-
+                        httpServletResponse.setContentType("application/json;charset=utf-8");
+                        PrintWriter out = httpServletResponse.getWriter();
+                        out.write(new ObjectMapper().writeValueAsString(RespBean.ok("注销成功")));
+                        out.flush();
+                        out.close();
                     }
                 })
                 .permitAll()
