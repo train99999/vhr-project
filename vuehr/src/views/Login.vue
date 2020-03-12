@@ -7,7 +7,7 @@
           </el-form-item>
 
           <el-form-item prop="password">
-              <el-input type="password" v-model="loginForm.password" auto-complete="off" placeholder="请输入密码"></el-input>
+              <el-input type="password" v-model="loginForm.password" auto-complete="off" placeholder="请输入密码" @keydown.enter.native="submitLogin"></el-input>
           </el-form-item>
 
           <el-checkbox class="loginRemember" v-model="checkbox"></el-checkbox>
@@ -17,6 +17,7 @@
 </template>
 
 <script>
+
 export default {
     name: "Login",
     //定义规则
@@ -37,7 +38,14 @@ export default {
         submitLogin(){
             this.$refs.loginForm.validate((valid) => {
                 if(valid) {
-                    alert('submit')
+                    this.postKeyValueRequest('/doLogin',this.loginForm).then(resp=>{
+                        if (resp) {
+                            //对象转换为 JSON 字符串
+                            window.sessionStorage.setItem("user",JSON.stringify(resp.obj));
+                            // 获取router 对象.进行页面跳转
+                            this.$router.replace('/home');
+                        }
+                    })
                 }else{
                     this.$message.error('用户名或密码不能为空');
                     return false;
