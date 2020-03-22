@@ -224,7 +224,22 @@
           ORDER BY
           m1.id,m2.id
     </select>
-    <update id="updateByExampleSelective" parameterType="map">
+
+  <resultMap id="MenuWithRole" type="com.quan.vhr.bean.Menu" extends="BaseResultMap">
+    <collection property="roles" ofType="com.quan.vhr.bean.Role">
+      <id column="rid" property="id"></id>
+      <result column="rname" property="name"></result>
+      <result column="rnameZh" property="namezh"></result>
+    </collection>
+  </resultMap>
+  <select id="getAllMenusWithRole" resultMap="MenuWithRole">
+    SELECT m.*,r.id AS rid,r.name AS rname,r.nameZh AS rnameZh
+    FROM menu m,menu_role mr,role r
+    WHERE m.id=mr.mid AND mr.rid=r.id
+    ORDER BY m.id
+  </select>
+
+  <update id="updateByExampleSelective" parameterType="map">
     update menu
     <set>
       <if test="record.id != null">

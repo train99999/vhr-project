@@ -135,13 +135,18 @@
       </if>
     </trim>
   </insert>
+
   <select id="countByExample" parameterType="com.quan.vhr.bean.PositionExample" resultType="java.lang.Long">
     select count(*) from position
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map">
+
+    <select id="getAllPositions" resultMap="BaseResultMap">
+        select * from position;
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
     update position
     <set>
       <if test="record.id != null">

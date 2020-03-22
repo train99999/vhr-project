@@ -1,4 +1,4 @@
-package com.quan.vhr.controller;
+package com.quan.vhr.controller.config;
 
 import com.quan.vhr.bean.Menu;
 import com.quan.vhr.service.MenuService;

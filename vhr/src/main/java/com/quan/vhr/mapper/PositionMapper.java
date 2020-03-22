@@ -3,6 +3,8 @@ package com.quan.vhr.mapper;
 import com.quan.vhr.bean.Position;
 import com.quan.vhr.bean.PositionExample;
 import java.util.List;
+
+import com.quan.vhr.bean.RespBean;
 import org.apache.ibatis.annotations.Param;
 
 public interface PositionMapper {
@@ -27,4 +29,7 @@ public interface PositionMapper {
     int updateByPrimaryKeySelective(Position record);
 
     int updateByPrimaryKey(Position record);
+
+    List<Position> getAllPositions();
+
 }

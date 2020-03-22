@@ -27,7 +27,7 @@
               </template>
                 <el-menu-item :index="child.path" v-for="(child,index) in item.children" :key="index">{{child.name}}</el-menu-item>
             </el-submenu>
-          </el-menu>          
+          </el-menu> 
         </el-aside>
         <el-main>
           <el-breadcrumb separator-class="el-icon-arrow-right" v-if="this.$router.currentRoute.path!='/home'">
@@ -37,7 +37,7 @@
           <div class="homeWelcome" v-if="this.$router.currentRoute.path =='/home'">
               欢迎来到微人事
           </div>          
-          <router-view/>
+          <router-view class="homeRouterView"/>
         </el-main>
       </el-container>
     </el-container>
@@ -116,5 +116,8 @@ export default {
 .el-dropdown-link{
   display: flex;
   align-items: center;
+}
+.homeRouterView{
+  margin-top: 10px;
 }
 </style>

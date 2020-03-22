@@ -27,8 +27,14 @@ router.beforeEach((to,from,next)=>{
   if(to.path == '/'){
     next();
   } else{
-    initMenu(router,store);
-    next();
+    // 判断用户是否登录，没有登录就跳转到登录页面
+    if(window.sessionStorage.getItem("user")){
+      initMenu(router,store);
+      next();
+    }else{
+      next('/');
+    }
+
   }
 })
 

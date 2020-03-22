@@ -25,6 +25,7 @@ export const formatRoutes = (routes) => {
             children
         } = router;
         if (children && children instanceof Array) {
+            // 一级菜单
             children = formatRoutes(children);
         }
         let fmRouter = {

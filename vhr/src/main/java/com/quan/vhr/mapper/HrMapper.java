@@ -3,6 +3,8 @@ package com.quan.vhr.mapper;
 import com.quan.vhr.bean.Hr;
 import com.quan.vhr.bean.HrExample;
 import java.util.List;
+
+import com.quan.vhr.bean.Role;
 import org.apache.ibatis.annotations.Param;
 
 public interface HrMapper {
@@ -29,4 +31,7 @@ public interface HrMapper {
     int updateByPrimaryKey(Hr record);
 
     Hr loadUserByUsername(String s);
+
+    List<Role> getHrRolesById(Integer id);
+
 }

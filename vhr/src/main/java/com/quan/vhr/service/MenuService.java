@@ -19,4 +19,8 @@ public class MenuService {
         Hr hr = (Hr)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return menuMapper.getMenusByHrId(hr.getId());
     }
+
+    public List<Menu> getAllMenusWithRole(){
+        return menuMapper.getAllMenusWithRole();
+    }
 }

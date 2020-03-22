@@ -1,10 +1,13 @@
 package com.quan.vhr.bean;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class Hr implements Serializable, UserDetails {
     private Integer id;
@@ -78,6 +81,16 @@ public class Hr implements Serializable, UserDetails {
         return username;
     }
 
+    private List<Role> roles;
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
     @Override
     // 账户是否没有过期
     public boolean isAccountNonExpired() {
@@ -102,13 +115,19 @@ public class Hr implements Serializable, UserDetails {
         return enabled;
     }
 
+
     public void setUsername(String username) {
         this.username = username == null ? null : username.trim();
     }
 
     @Override
+    // 返回用户角色的 方法
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>(roles.size());
+        for (Role role:roles){
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        }
+        return authorities;
     }
 
     public String getPassword() {
