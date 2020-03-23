@@ -3,6 +3,7 @@ package com.quan.vhr.controller.system.basic;
 import com.quan.vhr.bean.Position;
 import com.quan.vhr.bean.RespBean;
 import com.quan.vhr.service.PositionService;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,6 +46,17 @@ public class PositionController {
     public RespBean deletePositionById(@PathVariable Integer id){
         if(positionService.deletePositionById(id) == 1){
             return RespBean.ok("删除成功");
+        }else{
+            return RespBean.error("删除失败");
+        }
+    }
+
+    // 批量删除
+    @DeleteMapping("/")
+    public RespBean deletePositionsByIds(Integer[] ids){
+        System.out.println(ids);
+        if(positionService.deletePositionByIds(ids) == ids.length){
+            return RespBean.ok("批量删除成功");
         }else{
             return RespBean.error("删除失败");
         }

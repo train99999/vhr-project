@@ -98,6 +98,13 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
+
+  <delete id="deletePositionByIds">
+    delete from position where id in
+    <foreach collection="ids" item="id" separator="," open="(" close=")">
+      #{id}
+    </foreach>
+  </delete>
   <insert id="insert" parameterType="com.quan.vhr.bean.Position">
     insert into position (id, name, createDate, 
       enabled)
