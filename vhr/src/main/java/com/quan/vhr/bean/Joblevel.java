@@ -1,5 +1,7 @@
 package com.quan.vhr.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -10,6 +12,7 @@ public class Joblevel implements Serializable {
 
     private String titlelevel;
 
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
     private Date createdate;
 
     private Boolean enabled;

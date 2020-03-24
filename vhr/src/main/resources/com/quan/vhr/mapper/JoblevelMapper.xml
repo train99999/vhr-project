@@ -148,7 +148,10 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map">
+    <select id="getAllJobLevels" resultMap="BaseResultMap">
+      select * from joblevel
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
     update joblevel
     <set>
       <if test="record.id != null">

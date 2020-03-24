@@ -27,4 +27,6 @@ public interface JoblevelMapper {
     int updateByPrimaryKeySelective(Joblevel record);
 
     int updateByPrimaryKey(Joblevel record);
+
+    List<Joblevel> getAllJobLevels();
 }
