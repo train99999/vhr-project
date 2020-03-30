@@ -1,6 +1,6 @@
 import  axios from 'axios'
 import { Message } from 'element-ui';
-
+import router from '../router/index';
 axios.interceptors.response.use(success=>{
     // 如果 sucess.status 存在，并且等于200 ，并且自定义的返回对象中的 status 等于500
     if(success.status && success.status==200 && success.data.status == 500){
@@ -18,6 +18,7 @@ axios.interceptors.response.use(success=>{
         Message.error({message:'权限不足'});
     }else if(error.response.status == 401){
         Message.error({message:'尚未登录'});
+        router.replace('/');
     }else{
         // 如果服务端有返回错误信息
         if(error.response.data.msg){

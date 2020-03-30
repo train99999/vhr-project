@@ -134,7 +134,10 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map">
+    <select id="getAllRoles" resultMap="BaseResultMap">
+      select * from role;
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
     update role
     <set>
       <if test="record.id != null">

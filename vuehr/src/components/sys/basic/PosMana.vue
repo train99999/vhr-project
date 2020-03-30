@@ -38,6 +38,16 @@
             width="150"
             label="创建时间">
             </el-table-column>
+
+            <el-table-column
+            label="是否启用">
+            
+            <template slot-scope="scope">
+                <el-tag size="small" type="success" v-if="scope.row.enabled">已启用</el-tag>
+                <el-tag size="small" type="danger" v-else>未启用</el-tag>
+            </template>
+            </el-table-column>
+
             <el-table-column label="操作">
                 <template slot-scope="scope">
                     <el-button
@@ -58,8 +68,19 @@
         width="30%"
         >
         <div>
+            <div>
             <el-tag>职位名称</el-tag>
-            <el-input class="updatePoInput" size="small" v-model="updatePos.name" @keydown.enter.native="doUpdate"></el-input>
+            <el-input class="updatePoInput" size="small" v-model="updatePos.name" @keydown.enter.native="doUpdate"></el-input>                
+            </div>
+            <div style="margin-top:10px">
+                <el-tag style="margin-right:5px">是否启用</el-tag>
+                <el-switch 
+                v-model="updatePos.enabled"
+                active-text="启用"
+                inactive-text="禁用"
+                >
+                </el-switch>
+            </div>
         </div>
         <span slot="footer" class="dialog-footer">
             <el-button @click="dialogVisible = false" size="small">取 消</el-button>
@@ -78,7 +99,8 @@ export default {
                 name:''
             },
             updatePos:{
-                name:''
+                name:'',
+                enabled:false
             },
             dialogVisible:false,
             multipSeletection:[],
@@ -178,6 +200,7 @@ export default {
 <style>
 .updatePoInput{
     width: 200px;
+    
     margin-left: 8px;
 }
 .addPosInput{

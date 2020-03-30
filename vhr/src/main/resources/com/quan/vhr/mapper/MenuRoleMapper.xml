@@ -97,7 +97,10 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.quan.vhr.bean.MenuRole">
+    <delete id="deleteByRid">
+      delete from menu_role where rid = #{rid}
+    </delete>
+    <insert id="insert" parameterType="com.quan.vhr.bean.MenuRole">
     insert into menu_role (id, mid, rid)
     values (#{id,jdbcType=INTEGER}, #{mid,jdbcType=INTEGER}, #{rid,jdbcType=INTEGER})
   </insert>
@@ -125,6 +128,12 @@
         #{rid,jdbcType=INTEGER},
       </if>
     </trim>
+  </insert>
+  <insert id="insertRecord">
+        insert into menu_role (mid,rid) values
+        <foreach collection="mids" separator="," item="mid">
+          (#{mid},#{rid})
+        </foreach>
   </insert>
   <select id="countByExample" parameterType="com.quan.vhr.bean.MenuRoleExample" resultType="java.lang.Long">
     select count(*) from menu_role

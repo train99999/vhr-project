@@ -41,7 +41,7 @@ public class JobLevelController {
     }
 
     // 删除职称
-    @RequestMapping("/{id}")
+    @DeleteMapping("/{id}")
     public RespBean deleteJobLevelById(@PathVariable Integer id){
          if(jobLevelService.deleteJobLevelById(id)==1){
              return RespBean.ok("删除成功");
@@ -49,4 +49,14 @@ public class JobLevelController {
              return RespBean.error("删除失败");
          }
     }
+
+    // 批量删除
+    @DeleteMapping("/")
+    public RespBean deleteJobLevelsByIds(Integer[] ids){
+        if(jobLevelService.deleteJobLevelByIds(ids)==ids.length){
+            return RespBean.ok("删除成功");
+        }
+        return RespBean.error("删除失败");
+    }
+
 }
