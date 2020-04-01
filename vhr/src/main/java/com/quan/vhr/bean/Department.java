@@ -1,19 +1,43 @@
 package com.quan.vhr.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Department implements Serializable {
     private Integer id;
 
     private String name;
 
-    private Integer parentid;
+    private Integer parentId;
 
-    private String deppath;
+    private String depPath;
 
     private Boolean enabled;
 
-    private Boolean isparent;
+    private Boolean isParent;
+    private Integer result;
+    private List<Department> children = new ArrayList<>();
+
+    public List<Department> getChildren() {
+        return children;
+    }
+
+    public Integer getResult() {
+        return result;
+    }
+
+    public void setResult(Integer result) {
+        this.result = result;
+    }
+
+    public void setChildren(List<Department> children) {
+        this.children = children;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
     private static final long serialVersionUID = 1L;
 
@@ -30,23 +54,24 @@ public class Department implements Serializable {
     }
 
     public void setName(String name) {
+
         this.name = name == null ? null : name.trim();
     }
 
-    public Integer getParentid() {
-        return parentid;
+    public Integer getParentId() {
+        return parentId;
     }
 
-    public void setParentid(Integer parentid) {
-        this.parentid = parentid;
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
     }
 
-    public String getDeppath() {
-        return deppath;
+    public String getDepPath() {
+        return depPath;
     }
 
-    public void setDeppath(String deppath) {
-        this.deppath = deppath == null ? null : deppath.trim();
+    public void setDepPath(String depPath) {
+        this.depPath = depPath == null ? null : depPath.trim();
     }
 
     public Boolean getEnabled() {
@@ -57,11 +82,11 @@ public class Department implements Serializable {
         this.enabled = enabled;
     }
 
-    public Boolean getIsparent() {
-        return isparent;
+    public Boolean getIsParent() {
+        return isParent;
     }
 
-    public void setIsparent(Boolean isparent) {
-        this.isparent = isparent;
+    public void setIsParent(Boolean isParent) {
+        this.isParent = isParent;
     }
 }

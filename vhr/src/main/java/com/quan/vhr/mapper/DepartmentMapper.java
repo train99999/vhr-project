@@ -27,4 +27,10 @@ public interface DepartmentMapper {
     int updateByPrimaryKeySelective(Department record);
 
     int updateByPrimaryKey(Department record);
+
+    List<Department> getAllDepartmentsByParentId(int pid);
+
+    void addDep(Department dep);
+
+    void deleteDepById(Department dep);
 }
