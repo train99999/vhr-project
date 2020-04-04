@@ -1,5 +1,6 @@
 package com.quan.vhr.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -122,6 +123,7 @@ public class Hr implements Serializable, UserDetails {
 
     @Override
     // 返回用户角色的 方法
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> authorities = new ArrayList<>(roles.size());
         for (Role role:roles){

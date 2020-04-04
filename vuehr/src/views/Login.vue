@@ -1,6 +1,12 @@
 <template>
   <div>
-      <el-form v-bind:rules="rules" ref="loginForm" v-bind:model="loginForm" class="loginContainer">
+      <el-form 
+          v-loading="loading"
+        element-loading-text="登录中..."
+        element-loading-spinner="el-icon-loading"
+        element-loading-background="rgba(0, 0, 0, 0.8)"
+
+      v-bind:rules="rules" ref="loginForm" v-bind:model="loginForm" class="loginContainer">
           <h3 class="loginTitle">系统登录</h3>
           <el-form-item prop="username">
               <el-input type="text" v-model="loginForm.username" auto-complete="off" placeholder="请输入用户名"></el-input>
@@ -23,6 +29,7 @@ export default {
     //定义规则
     data() {
         return {
+            loading:false,
             loginForm:{
                 username: 'admin',
                 password: '123'
@@ -36,9 +43,14 @@ export default {
     },
     methods:{
         submitLogin(){
+            
             this.$refs.loginForm.validate((valid) => {
                 if(valid) {
-                    this.postKeyValueRequest('/doLogin',this.loginForm).then(resp=>{
+                    this.loading=true;
+                    clearTimeout(this.timer);  //清除延迟执行 
+                    this.timer = setTimeout(()=>{   //设置延迟执行
+                        this.postKeyValueRequest('/doLogin',this.loginForm).then(resp=>{
+                        this.loading=false;
                         if (resp) {
                             //对象转换为 JSON 字符串
                             window.sessionStorage.setItem("user",JSON.stringify(resp.obj));
@@ -46,6 +58,9 @@ export default {
                             this.$router.replace('/home');
                         }
                     })
+                    },1000);
+ 
+
                 }else{
                     this.$message.error('用户名或密码不能为空');
                     return false;

@@ -97,7 +97,10 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.quan.vhr.bean.HrRole">
+    <delete id="deleteByHridKey">
+      delete from hr_role where hrid=#{hrid}
+    </delete>
+    <insert id="insert" parameterType="com.quan.vhr.bean.HrRole">
     insert into hr_role (id, hrid, rid
       )
     values (#{id,jdbcType=INTEGER}, #{hrid,jdbcType=INTEGER}, #{rid,jdbcType=INTEGER}
@@ -127,6 +130,12 @@
         #{rid,jdbcType=INTEGER},
       </if>
     </trim>
+  </insert>
+  <insert id="addRole">
+    insert into hr_role (hrid,rid) values 
+    <foreach collection="rids" item="rid" separator="," >
+      (#{hrid},#{rid})
+    </foreach>
   </insert>
   <select id="countByExample" parameterType="com.quan.vhr.bean.HrRoleExample" resultType="java.lang.Long">
     select count(*) from hr_role
